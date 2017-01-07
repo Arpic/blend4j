@@ -1,4 +1,8 @@
 language: java
+cache: 
+    directories:
+        $HOME/.galaxy-bootstrap
+        $HOME/.cache/pip
 jdk:
   - oraclejdk7
   - openjdk6
@@ -8,6 +12,9 @@ before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq mercurial libsqlite3-dev python-dev python-virtualenv samtools bedtools
 after_failure:
+ - echo "Log files found"
+ - ls /tmp/**/bootstrap-log
  - echo "Tests failed, dumping all logs."
  - cat /tmp/**/bootstrap-log/*
 script: travis_wait mvn test -B
+
