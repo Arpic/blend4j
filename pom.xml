@@ -4,7 +4,7 @@
   <groupId>com.github.jmchilton.blend4j</groupId>
   <artifactId>blend4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.1-SNAPSHOT</version>
   <name>blend4j</name>
   <description>blend4j is a JVM partial reimplemenation of the Python library bioblend (http://bioblend.readthedocs.org/en/latest/) for interacting with Galaxy, CloudMan, and BioCloudCentral.</description>
   <parent>
@@ -13,13 +13,13 @@
     <version>7</version>
   </parent>
   <scm>
-    <connection>scm:git:git@github.com:jmchilton/blend4j.git</connection>
-    <developerConnection>scm:git:git@github.com:jmchilton/blend4j.git</developerConnection>
-    <url>git@github.com:jmchilton/blend4j.git</url>
+    <connection>scm:git:git@github.com:galaxyproject/blend4j.git</connection>
+    <developerConnection>scm:git:git@github.com:galaxyproject/blend4j.git</developerConnection>
+    <url>git@github.com:galaxyproject/blend4j.git</url>
   </scm>
   <issueManagement>
     <system>Github</system>
-    <url>http://github.com/jmchilton/blend4j/issues</url>
+    <url>https://github.com/galaxyproject/blend4j/issues</url>
   </issueManagement>
   <licenses>
     <license>
@@ -32,27 +32,29 @@
   <properties>
     <!-- github server corresponds to entry in ~/.m2/settings.xml -->
     <github.global.server>github</github.global.server>
+
+    <jersey.version>1.19.1</jersey.version>
   </properties>
   <dependencies>
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
-      <version>1.17.1</version>
+      <version>${jersey.version}</version>
     </dependency>
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-json</artifactId>
-      <version>1.17.1</version>
+      <version>${jersey.version}</version>
     </dependency>
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-core</artifactId>
-      <version>1.17.1</version>
+      <version>${jersey.version}</version>
     </dependency>
     <dependency>
         <groupId>com.sun.jersey.contribs</groupId>
         <artifactId>jersey-multipart</artifactId>
-        <version>1.17.1</version>
+        <version>${jersey.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
@@ -75,6 +77,11 @@
       <version>3.0.0</version>
       <optional>true</optional><!-- needed only for annotations -->
     </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>16.0.1</version>
+    </dependency>
     <!-- Test Dependencies -->
     <dependency>
       <groupId>org.testng</groupId>
@@ -85,7 +92,7 @@
     <dependency>
       <groupId>com.github.jmchilton.galaxybootstrap</groupId>
       <artifactId>galaxybootstrap</artifactId>
-      <version>0.6.0</version>
+      <version>0.7.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -118,6 +125,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9.1</version>
         <configuration>
+          <additionalJOption>-Xdoclint:none</additionalJOption>
           <docfilessubdirs>true</docfilessubdirs>
           <!-- (1) CSS file location -->
            <!-- (2) SyntaxHighlighter Javascript files -->
@@ -215,8 +223,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.3.2</version>
           <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
+            <source>1.8</source>
+            <target>1.8</target>
             <compilerArgument />
           </configuration>
         </plugin>
@@ -244,6 +252,9 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <additionalJOption>-Xdoclint:none</additionalJOption>
+          </configuration>
           <executions>
             <execution>
               <id>attach-javadocs</id>

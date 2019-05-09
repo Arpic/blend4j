@@ -17,6 +17,7 @@ import com.github.jmchilton.blend4j.galaxy.beans.HistoryDataset;
 import com.github.jmchilton.blend4j.galaxy.beans.HistoryExport;
 import com.github.jmchilton.blend4j.galaxy.beans.collection.request.CollectionDescription;
 import com.github.jmchilton.blend4j.galaxy.beans.collection.response.CollectionResponse;
+import com.google.common.io.Files;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
@@ -117,7 +118,7 @@ class HistoriesClientImpl extends Client implements HistoriesClient {
     File downloadedFile = super.getWebResourceContents(historyId)
         .path(datasetId).path("display").queryParam("to_ext", fileExt)
         .get(File.class);
-    downloadedFile.renameTo(destinationFile);
+    Files.move(downloadedFile, destinationFile);
     FileWriter fr = new FileWriter(downloadedFile);
     fr.close();
   }

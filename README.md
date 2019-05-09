@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/jmchilton/blend4j.png?branch=master)](https://travis-ci.org/jmchilton/blend4j)
+[![Build Status](https://travis-ci.org/galaxyproject/blend4j.png?branch=master)](https://travis-ci.org/galaxyproject/blend4j)
 
 # About
 
-blend4j is a partial reimplemenation of the Python library [bioblend][1]
+blend4j is a partial reimplementation of the Python library [bioblend][1]
 for the JVM. bioblend for Python is a library for scripting interactions
 with Galaxy, CloudMan, and BioCloudCentral.
 
@@ -17,7 +17,9 @@ blend4j in larger open source projects include [Molgenis integration][molgensis]
 [TraIT Workflow Runner][trait] for use with
 [tranSMART][transmart] by [Freek de Bruijn][freekdb].
 
-[api]: http://jmchilton.github.io/blend4j/apidocs/
+blend4j requires Java 8+ to function.
+
+[api]: http://galaxyproject.github.io/blend4j/apidocs/
 [tutorial]: https://github.com/apetkau/blend4j-tutorials
 [tests]: https://github.com/jmchilton/blend4j/tree/master/src/test/java/com/github/jmchilton/blend4j/galaxy
 [molgensis]: https://github.com/molgenis/molgenis/commit/57d229a8d36fa9dae1155685e85187399863057f
@@ -31,13 +33,13 @@ blend4j in larger open source projects include [Molgenis integration][molgensis]
 
 blend4j can be built with [Apache Maven][b1].
 
-        % git clone git://github.com/jmchilton/blend4j.git
+        % git clone git://github.com/galaxyproject/blend4j.git
         % cd blend4j
         % mvn compile
 
 # Testing
 
-[![Build Status](https://travis-ci.org/jmchilton/blend4j.png?branch=master)](https://travis-ci.org/jmchilton/blend4j)
+[![Build Status](https://travis-ci.org/galaxyproject/blend4j.png?branch=master)](https://travis-ci.org/galaxyproject/blend4j)
 
 blend4j can be tested with [Apache Maven][b1].
 
@@ -65,7 +67,7 @@ adding the following to the dependencies section of the project's pom.xml file.
      <dependency>
        <groupId>com.github.jmchilton.blend4j</groupId>
        <artifactId>blend4j</artifactId>
-       <version>0.1.0</version>
+       <version>0.2.0</version>
      </dependency>
 ```
 
