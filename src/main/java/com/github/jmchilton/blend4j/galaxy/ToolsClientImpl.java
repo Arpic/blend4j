@@ -39,26 +39,44 @@ class ToolsClientImpl extends Client implements ToolsClient {
   public ToolExecution upload(final FileUploadRequest request) {
     return uploadRequest(request).getEntity(ToolExecution.class);
   }
-  
+
   public ClientResponse uploadRequest(final FileUploadRequest request) {
-    final Map<String, String> uploadParameters = new HashMap<String, String>();
-    final String datasetName = request.getDatasetName();
-    if(datasetName != null) {
-      uploadParameters.put("files_0|NAME", datasetName);
-    } else {
-      uploadParameters.put("files_0|NAME", request.getFiles().iterator().next().getName());
-    }
+    Map<String, String> inputParameters = prepareInputParameters(request);
+    final Map<String, Object> requestParameters = prepareRequestParameters(request, inputParameters);
+    return multipartPost(getWebResource(), requestParameters, prepareUploads(request.getFileObjects()));
+  }
+
+  @Override
+  public ToolExecution upload(FtpUploadRequest ftpRequest) {
+    return uploadRequest(ftpRequest).getEntity(ToolExecution.class);
+  }
+
+  @Override
+  public ClientResponse uploadRequest(FtpUploadRequest request) {
+    Map<String, String> inputParameters = prepareInputParameters(request);
+    inputParameters.put("files_0|url_paste", request.getPath());
+    final Map<String, Object> requestParameters = prepareRequestParameters(request, inputParameters);
+    return create(getWebResource(), requestParameters);
+  }
+
+  private Map<String, String> prepareInputParameters(UploadRequest request) {
+    final Map<String, String> uploadParameters = new HashMap<>();
+    uploadParameters.put("files_0|NAME", request.getDatasetName());
     uploadParameters.put("dbkey", request.getDbKey());
     uploadParameters.put("file_type", request.getFileType());
     uploadParameters.putAll(request.getExtraParameters());
-    final Map<String, Object> requestParameters = new HashMap<String, Object>();
+    return uploadParameters;
+  }
+
+  private Map<String, Object> prepareRequestParameters(UploadRequest request, Map<String, String> uploadParameters) {
+    final Map<String, Object> requestParameters = new HashMap<>();
     requestParameters.put("tool_id", request.getToolId());
     requestParameters.put("history_id", request.getHistoryId());
-    requestParameters.put("inputs", write(uploadParameters));
+    requestParameters.put("inputs", uploadParameters);
     requestParameters.put("type", "upload_dataset");
-    return multipartPost(getWebResource(), requestParameters, prepareUploads(request.getFileObjects()));
+    return requestParameters;
   }
-  
+
   /**
    * {@inheritDoc}
    */
